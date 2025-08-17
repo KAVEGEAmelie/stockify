@@ -1,138 +1,773 @@
-/* --- THEME PRO MODERNE - DARK MODE --- */
+/* === THEME PRO MODERNE V2 - STOCKIFY === */
+
+/* 1. PALETTE DE COULEURS ET VARIABLES DE DESIGN */
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap');
+
 :root {
-    --primary-color: #4F46E5;      /* Violet profond */
-    --background-color: #121212;   /* Noir doux */
-    --card-color: #1E1E1E;         /* Gris anthracite */
-    --text-main: #FFFFFF;          /* Blanc pur */
-    --text-secondary: #B0B0B0;     /* Gris clair */
-    --accent-success: #22C55E;     /* Vert succès */
-    --accent-danger: #EF4444;      /* Rouge alerte */
-    --border-color: #2D2D2D;       /* Gris pour les bordures */
+    --primary: #4F46E5;
+    --primary-hover: #4338CA;
+    --background: #121212;
+    --surface: #1E1E1E;
+    --surface-light: #2a2a2a;
+    --text-primary: #FFFFFF;
+    --text-secondary: #E5E7EB;
+    --text-muted: #9CA3AF;
+    --success: #22C55E;
+    --danger: #EF4444;
+    --warning: #F59E0B;
+    --info: #3B82F6;
+    --border-color: #374151;
+    --font-family: 'Inter', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+    --card-border-radius: 0.75rem;
+    --shadow-sm: 0 1px 2px 0 rgb(0 0 0 / 0.05);
+    --shadow-md: 0 4px 6px -1px rgb(0 0 0 / 0.1), 0 2px 4px -2px rgb(0 0 0 / 0.1);
 }
 
-/* --- STYLES GLOBAUX --- */
+/* 2. STYLES GLOBAUX */
 body {
-    background-color: var(--background-color);
+    background-color: var(--background);
     color: var(--text-secondary);
-    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+    font-family: var(--font-family);
+    margin: 0;
+    padding: 0;
+    overflow-x: hidden;
+    font-size: 14px;
+    line-height: 1.6;
 }
 
-/* --- STRUCTURE PRINCIPALE --- */
-.wrapper {
-    width: 100%;
-    transition: all 0.3s;
-}
-.main-content {
-    padding: 1.5rem;
+h1, h2, h3, h4, h5, h6 {
+    color: var(--text-primary);
+    font-weight: 600;
+    line-height: 1.3;
 }
 
-/* --- SIDEBAR --- */
+h1 { font-size: 2rem; }
+h2 { font-size: 1.75rem; }
+h3 { font-size: 1.5rem; }
+h4 { font-size: 1.25rem; }
+h5 { font-size: 1.125rem; }
+h6 { font-size: 1rem; }
+
+/* Amélioration de la lisibilité du texte */
+p, span, div, td, th {
+    color: var(--text-secondary);
+    font-weight: 400;
+}
+
+strong, .fw-bold, .font-weight-bold {
+    color: var(--text-primary);
+    font-weight: 600;
+}
+
+small, .small, .text-muted {
+    color: var(--text-muted);
+    font-size: 0.875rem;
+}
+
+/* LAYOUT PRINCIPAL */
+#wrapper {
+    display: flex;
+    min-height: 100vh;
+}
+
+.main-container {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+}
+
+/* 3. SIDEBAR AMÉLIORÉE AVEC STRUCTURE FIXE */
 .sidebar {
     width: 260px;
-    background-color: var(--card-color);
+    background-color: var(--surface);
     border-right: 1px solid var(--border-color);
-    transition: margin-left 0.3s ease-in-out;
+    position: fixed;
+    top: 0;
+    left: 0;
+    height: 100vh;
+    z-index: 1000;
+    display: flex;
+    flex-direction: column;
+    overflow: hidden; /* Empêche le scroll de toute la sidebar */
 }
-.sidebar-brand {
+
+/* En-tête fixe de la sidebar */
+.sidebar-header-fixed {
+    flex-shrink: 0;
+    background-color: var(--surface);
+    border-bottom: 1px solid var(--border-color);
+    padding: 1rem;
+    min-height: 80px;
+}
+
+/* Contenu défilable de la sidebar */
+.sidebar-content {
+    flex: 1;
+    overflow-y: auto;
+    overflow-x: hidden;
+    padding: 0 0.5rem;
+    min-height: 0; /* Important pour que flex fonctionne */
+}
+
+/* Scrollbar personnalisée pour la sidebar */
+.sidebar-content::-webkit-scrollbar {
+    width: 6px;
+}
+
+.sidebar-content::-webkit-scrollbar-track {
+    background: transparent;
+}
+
+.sidebar-content::-webkit-scrollbar-thumb {
+    background-color: rgba(255,255,255,0.3);
+    border-radius: 3px;
+}
+
+.sidebar-content::-webkit-scrollbar-thumb:hover {
+    background-color: rgba(255,255,255,0.5);
+}
+
+/* Pied fixe de la sidebar */
+.sidebar-footer-fixed {
+    flex-shrink: 0;
+    background-color: var(--surface);
+    border-top: 1px solid var(--border-color);
+    padding: 1rem;
+    min-height: 70px;
+}
+
+.sidebar-brand .fs-4 {
     font-weight: 700;
 }
+
 .sidebar hr {
     border-color: var(--border-color);
+    margin: 1rem;
 }
+
 .sidebar-header {
     padding: .5rem 1rem;
     font-size: 0.7rem;
     font-weight: 700;
     color: var(--text-secondary);
     text-transform: uppercase;
-    letter-spacing: 1.2px;
+    letter-spacing: 1px;
 }
+
 .sidebar .nav-link {
     color: var(--text-secondary);
     font-weight: 500;
-    padding: 0.8rem 1rem;
-    border-radius: 0.375rem;
-    margin-bottom: 0.25rem;
-    transition: background-color 0.2s, color 0.2s;
+    padding: 0.75rem 1rem;
+    margin: 0.15rem 0.5rem;
+    border-radius: 0.5rem;
+    transition: background-color 0.2s ease, color 0.2s ease;
+    font-size: 0.9rem;
 }
+
 .sidebar .nav-link:hover {
-    background-color: rgba(255, 255, 255, 0.05);
-    color: var(--text-main);
+    background-color: var(--surface-light);
+    color: var(--text-primary);
 }
+
 .sidebar .nav-link.active {
-    background-color: var(--primary-color);
-    color: var(--text-main);
+    background: linear-gradient(90deg, var(--primary) 0%, var(--primary-hover) 100%);
+    color: #FFFFFF;
     font-weight: 600;
+    box-shadow: 0 4px 15px -5px rgba(79, 70, 229, 0.6);
 }
+
 .sidebar .dropdown-menu {
-    background-color: #2a2a2a;
-}
-.sidebar .dropdown-item {
-    color: var(--text-secondary);
+    background-color: var(--surface-light);
+    border: 1px solid var(--border-color);
 }
 .sidebar .dropdown-item:hover {
-    background-color: var(--primary-color);
-    color: var(--text-main);
+    background-color: var(--primary);
+    color: var(--text-primary);
 }
 
-/* --- NAVBAR --- */
-.navbar {
-    background-color: var(--card-color);
-    border-bottom: 1px solid var(--border-color);
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-}
-.navbar .btn {
-    color: var(--text-secondary);
-    border-color: var(--border-color);
-}
-.navbar .btn:hover {
-    color: var(--text-main);
-    background-color: rgba(255, 255, 255, 0.1);
-    border-color: var(--text-secondary);
-}
-.navbar .form-control {
-    background-color: var(--background-color);
-    border-color: var(--border-color);
-    color: var(--text-main);
-}
-.navbar .form-control:focus {
-    background-color: var(--background-color);
-    border-color: var(--primary-color);
-    color: var(--text-main);
-    box-shadow: 0 0 0 0.25rem rgba(79, 70, 229, 0.25);
+/* 5. STYLE DU CONTENU PRINCIPAL & CARTES DU DASHBOARD */
+.main-content {
+    padding: 2rem;
+    flex: 1;
+    overflow-y: auto;
+    margin-left: 260px;
+    padding-top: 2rem;
 }
 
-/* --- CONTENU (CARTES, TABLES, etc.) --- */
+.main-content .container-fluid:first-child {
+    padding-top: 0;
+}
+
+.footer-fixed {
+    background-color: var(--surface);
+    border-top: 1px solid var(--border-color);
+    padding: 1rem 1.5rem;
+    margin-left: 260px;
+    margin-top: auto;
+    text-align: center;
+}
+
 .card {
-    background-color: var(--card-color);
+    background-color: var(--surface);
     border: 1px solid var(--border-color);
+    border-radius: var(--card-border-radius);
+    box-shadow: none;
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.card:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 10px 20px -5px rgba(0, 0, 0, 0.2);
+}
+
+.card-header {
+    background-color: transparent;
+    border-bottom: 1px solid var(--border-color);
+    color: var(--text-primary);
+    font-weight: 600;
+    padding: 1rem 1.25rem;
+}
+
+.card-footer {
+    background-color: rgba(0, 0, 0, 0.2);
+    border-top: 1px solid var(--border-color);
+}
+
+/* Cartes de statistiques principales avec dégradés */
+.card.bg-primary { background: linear-gradient(135deg, #4F46E5, #6366F1); border: none; }
+.card.bg-success { background: linear-gradient(135deg, #16A34A, #22C55E); border: none; }
+.card.bg-info   { background: linear-gradient(135deg, #2563EB, #3B82F6); border: none; }
+.card.bg-warning { background: linear-gradient(135deg, #D97706, #F59E0B); border: none; color: var(--text-primary); }
+
+/* Cartes de statistiques secondaires avec bordure accentuée */
+.card.border-danger { border-left: 4px solid var(--danger); }
+.card.border-success { border-left: 4px solid var(--success); }
+.card.border-info { border-left: 4px solid var(--info); }
+
+/* 6. STYLE DES COMPOSANTS (FORMULAIRES, TABLES, BADGES, BOUTONS) */
+
+/* Formulaires */
+.form-label {
+    color: var(--text-primary);
+    font-weight: 500;
+    margin-bottom: 0.5rem;
+}
+
+.form-control,
+.form-select {
+    background-color: var(--surface-light);
+    border: 1px solid var(--border-color);
+    color: var(--text-primary);
+    transition: all 0.2s ease;
+}
+
+.form-control:focus,
+.form-select:focus {
+    background-color: var(--surface-light);
+    border-color: var(--primary);
+    box-shadow: 0 0 0 0.2rem rgba(79, 70, 229, 0.25);
+    color: var(--text-primary);
+}
+
+.form-control::placeholder {
+    color: var(--text-secondary);
+}
+
+.form-text {
+    color: var(--text-secondary);
+}
+
+/* Cases à cocher et switches */
+.form-check-input {
+    background-color: var(--surface-light);
+    border-color: var(--border-color);
+}
+
+.form-check-input:checked {
+    background-color: var(--primary);
+    border-color: var(--primary);
+}
+
+.form-check-input:focus {
+    box-shadow: 0 0 0 0.2rem rgba(79, 70, 229, 0.25);
+}
+
+.form-check-label {
+    color: var(--text-primary);
+}
+
+/* Alertes */
+.alert {
+    border: none;
     border-radius: 0.5rem;
 }
-.card-header {
-    background-color: var(--card-color);
-    border-bottom: 1px solid var(--border-color);
-    color: var(--text-main);
-    font-weight: 600;
+
+.alert-success {
+    background-color: rgba(34, 197, 94, 0.15);
+    color: var(--success);
+    border-left: 4px solid var(--success);
 }
+
+.alert-danger {
+    background-color: rgba(239, 68, 68, 0.15);
+    color: var(--danger);
+    border-left: 4px solid var(--danger);
+}
+
+.alert-warning {
+    background-color: rgba(245, 158, 11, 0.15);
+    color: var(--warning);
+    border-left: 4px solid var(--warning);
+}
+
+.alert-info {
+    background-color: rgba(59, 130, 246, 0.15);
+    color: var(--info);
+    border-left: 4px solid var(--info);
+}
+
+/* Tables */
 .table {
     color: var(--text-secondary);
+    font-size: 0.9rem;
+}
+.table > :not(caption) > * > * {
+    background-color: transparent !important;
+    border-bottom-color: var(--border-color);
+    vertical-align: middle;
+    padding: 0.75rem;
 }
 .table thead th {
-    color: var(--text-main);
+    color: var(--text-primary);
+    font-weight: 600;
+    border-bottom-width: 2px;
+    font-size: 0.875rem;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
 }
-.table-dark { /* Override Bootstrap's dark table for our theme */
-    --bs-table-bg: var(--card-color);
-    --bs-table-border-color: var(--border-color);
-    --bs-table-color: var(--text-secondary);
-    --bs-table-hover-color: var(--text-main);
+.table tbody td {
+    color: var(--text-secondary);
+    font-weight: 400;
 }
-.badge.bg-success { background-color: var(--accent-success) !important; }
-.badge.bg-danger { background-color: var(--accent-danger) !important; }
+.table-hover > tbody > tr:hover > * {
+    color: var(--text-primary) !important;
+    background-color: var(--surface-light) !important;
+}
 
-/* --- TOGGLE SIDEBAR --- */
-.sidebar { margin-left: 0; }
-.sidebar-toggled .sidebar { margin-left: -260px; }
-@media (max-width: 768px) {
-    .sidebar { margin-left: -260px; }
-    .sidebar-toggled .sidebar { margin-left: 0; }
+/* En-tête de table sombre */
+.table-dark {
+    --bs-table-bg: var(--surface-light);
+    --bs-table-striped-bg: var(--surface);
+    --bs-table-striped-color: var(--text-primary);
+    --bs-table-active-bg: var(--primary);
+    --bs-table-active-color: white;
+    --bs-table-hover-bg: var(--surface);
+    --bs-table-hover-color: var(--text-primary);
+    --bs-table-color: var(--text-primary);
+    --bs-table-border-color: var(--border-color);
 }
+
+.table-dark th {
+    background-color: var(--surface-light) !important;
+    color: var(--text-primary) !important;
+    border-color: var(--border-color) !important;
+}
+
+/* Boutons */
+.btn {
+    font-weight: 500;
+    border-radius: 0.5rem;
+    transition: all 0.2s ease;
+}
+
+.btn-lg {
+    padding: 0.75rem 1.5rem;
+    font-weight: 600;
+}
+
+.btn-primary {
+    background-color: var(--primary);
+    border-color: var(--primary);
+}
+
+.btn-primary:hover {
+    background-color: var(--primary-hover);
+    border-color: var(--primary-hover);
+    transform: translateY(-1px);
+}
+
+.btn-outline-primary {
+    color: var(--primary);
+    border-color: var(--primary);
+}
+
+.btn-outline-primary:hover {
+    background-color: var(--primary);
+    border-color: var(--primary);
+    color: white;
+}
+
+.btn-outline-secondary {
+    color: var(--text-secondary);
+    border-color: var(--border-color);
+}
+
+.btn-outline-secondary:hover {
+    background-color: var(--surface-light);
+    border-color: var(--text-secondary);
+    color: var(--text-primary);
+}
+
+.btn-outline-info {
+    color: var(--info);
+    border-color: var(--info);
+}
+
+.btn-outline-info:hover {
+    background-color: var(--info);
+    border-color: var(--info);
+    color: white;
+}
+
+.btn-outline-warning {
+    color: var(--warning);
+    border-color: var(--warning);
+}
+
+.btn-outline-warning:hover {
+    background-color: var(--warning);
+    border-color: var(--warning);
+    color: white;
+}
+
+.btn-outline-danger {
+    color: var(--danger);
+    border-color: var(--danger);
+}
+
+.btn-outline-danger:hover {
+    background-color: var(--danger);
+    border-color: var(--danger);
+    color: white;
+}
+
+/* Badges subtils et professionnels */
+.badge {
+    font-size: 0.8rem;
+    font-weight: 600;
+    padding: 0.5em 0.8em;
+    border-radius: 0.375rem;
+    letter-spacing: 0.025em;
+}
+.badge.bg-success { 
+    background-color: rgba(34, 197, 94, 0.2) !important; 
+    color: #22C55E !important; 
+    border: 1px solid rgba(34, 197, 94, 0.3); 
+}
+.badge.bg-danger { 
+    background-color: rgba(239, 68, 68, 0.2) !important; 
+    color: #EF4444 !important; 
+    border: 1px solid rgba(239, 68, 68, 0.3); 
+}
+.badge.bg-warning { 
+    background-color: rgba(245, 158, 11, 0.2) !important; 
+    color: #F59E0B !important; 
+    border: 1px solid rgba(245, 158, 11, 0.3); 
+}
+.badge.bg-info { 
+    background-color: rgba(59, 130, 246, 0.2) !important; 
+    color: #3B82F6 !important; 
+    border: 1px solid rgba(59, 130, 246, 0.3); 
+}
+.badge.bg-secondary { 
+    background-color: rgba(156, 163, 175, 0.2) !important; 
+    color: var(--text-secondary) !important; 
+    border: 1px solid rgba(156, 163, 175, 0.3); 
+}
+.badge.bg-primary { 
+    background-color: rgba(79, 70, 229, 0.2) !important; 
+    color: var(--primary) !important; 
+    border: 1px solid rgba(79, 70, 229, 0.3); 
+}
+
+/* 8. AMÉLIORATIONS DE LISIBILITÉ */
+
+/* Statistiques - amélioration des contrastes */
+.card .display-4,
+.card .display-5,
+.card .display-6 {
+    color: var(--text-primary);
+    font-weight: 700;
+}
+
+.text-primary { color: #6366F1 !important; }
+.text-success { color: #22C55E !important; }
+.text-danger { color: #EF4444 !important; }
+.text-warning { color: #F59E0B !important; }
+.text-info { color: #3B82F6 !important; }
+.text-muted { color: var(--text-muted) !important; }
+.text-white { color: #FFFFFF !important; }
+
+/* Amélioration des liens */
+a {
+    color: var(--primary);
+    text-decoration: none;
+}
+
+a:hover {
+    color: var(--primary-hover);
+    text-decoration: underline;
+}
+
+/* Breadcrumb */
+.breadcrumb {
+    background-color: transparent;
+    margin-bottom: 0;
+}
+
+.breadcrumb-item {
+    color: var(--text-muted);
+}
+
+.breadcrumb-item.active {
+    color: var(--text-primary);
+    font-weight: 500;
+}
+
+.breadcrumb-item + .breadcrumb-item::before {
+    color: var(--text-muted);
+}
+
+/* Liste d'éléments */
+.list-group-item {
+    background-color: var(--surface);
+    border-color: var(--border-color);
+    color: var(--text-secondary);
+}
+
+.list-group-item:hover {
+    background-color: var(--surface-light);
+    color: var(--text-primary);
+}
+
+/* Tooltips et popovers */
+.tooltip .tooltip-inner {
+    background-color: var(--surface-light);
+    color: var(--text-primary);
+    border: 1px solid var(--border-color);
+}
+
+/* Améliorations pour les icônes */
+.bi {
+    vertical-align: -0.125em;
+}
+
+/* Cartes de statistiques - texte plus visible */
+.stat-card .card-body {
+    padding: 1.5rem;
+}
+
+.stat-card .stat-value {
+    font-size: 2.5rem;
+    font-weight: 700;
+    color: var(--text-primary);
+    line-height: 1;
+}
+
+.stat-card .stat-label {
+    font-size: 0.875rem;
+    color: var(--text-muted);
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    font-weight: 500;
+}
+
+/* Boutons - amélioration de la lisibilité */
+.btn {
+    font-weight: 500;
+    border-radius: 0.5rem;
+    transition: all 0.2s ease;
+    font-size: 0.875rem;
+    border-width: 1px;
+}
+
+.btn-sm {
+    font-size: 0.8rem;
+    padding: 0.375rem 0.75rem;
+}
+.pagination .page-link {
+    background-color: var(--surface);
+    border-color: var(--border-color);
+    color: var(--text-secondary);
+}
+
+.pagination .page-link:hover {
+    background-color: var(--surface-light);
+    border-color: var(--primary);
+    color: var(--primary);
+}
+
+.pagination .page-item.active .page-link {
+    background-color: var(--primary);
+    border-color: var(--primary);
+    color: white;
+}
+
+/* 7. MÉCANISME DE TOGGLE DE LA SIDEBAR */
+.wrapper { 
+    width: 100%; 
+    transition: all 0.3s; 
+}
+
+.sidebar-toggled .sidebar { 
+    margin-left: -260px; 
+}
+
+.sidebar-toggled .main-content,
+.sidebar-toggled .footer-fixed {
+    margin-left: 0;
+}
+
+/* Bouton mobile pour la sidebar */
+.sidebar-mobile-toggle {
+    display: none;
+}
+
+@media (max-width: 768px) {
+    .sidebar { 
+        margin-left: -260px; 
+    }
+    .sidebar-toggled .sidebar { 
+        margin-left: 0; 
+    }
+    .main-content,
+    .footer-fixed { 
+        margin-left: 0;
+        padding: 1rem; 
+    }
+    
+    /* Afficher le bouton mobile quand la sidebar est cachée */
+    .sidebar-mobile-toggle {
+        display: block !important;
+    }
+    
+    .sidebar-toggled .sidebar-mobile-toggle {
+        display: none !important;
+    }
+} /* Footer fixe en bas */
+        .footer-fixed {
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            height: 40px;
+            background-color: #343a40;
+            color: #ffffff;
+            z-index: 1030;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 0.875rem;
+        }
+
+        /* Responsive pour mobile */
+        @media (max-width: 768px) {
+            .sidebar {
+                transform: translateX(-100%);
+                transition: transform 0.3s ease-in-out;
+            }
+
+
+}
+
+
+/* === AMÉLIORATIONS DE LISIBILITÉ SPÉCIFIQUES === */
+
+/* Amélioration des statistiques numériques */
+.stats-card .card-body h1,
+.stats-card .card-body h2,
+.stats-card .card-body .display-1,
+.stats-card .card-body .display-2,
+.stats-card .card-body .display-3,
+.stats-card .card-body .display-4 {
+    color: #FFFFFF !important;
+    font-weight: 700;
+    text-shadow: 0 1px 3px rgba(0, 0, 0, 0.3);
+}
+
+/* Statistiques dans les cartes colorées */
+.card.bg-primary .card-body *,
+.card.bg-success .card-body *,
+.card.bg-info .card-body *,
+.card.bg-warning .card-body * {
+    color: #FFFFFF !important;
+}
+
+/* Amélioration des nombres dans les tableaux */
+.table td[class*="fw-"],
+.table th[class*="fw-"] {
+    font-weight: 600 !important;
+}
+
+/* Contraste élevé pour les éléments importants */
+.table .fw-bold,
+.table .fw-medium {
+    color: var(--text-primary) !important;
+}
+
+/* Amélioration de la visibilité des icônes dans les boutons */
+.btn .bi {
+    font-size: 1em;
+    vertical-align: -0.125em;
+}
+
+/* Meilleure lisibilité pour les badges */
+.badge {
+    font-family: 'Inter', sans-serif;
+    font-weight: 600;
+    text-shadow: none;
+}
+
+/* Amélioration du contraste des textes secondaires */
+.text-muted {
+    color: #9CA3AF !important;
+    opacity: 0.9;
+}
+
+/* Sidebar - amélioration de la lisibilité */
+.sidebar .nav-link {
+    font-size: 0.9rem;
+    font-weight: 500;
+}
+
+.sidebar .nav-link.active {
+    color: #FFFFFF !important;
+    font-weight: 600;
+}
+
+/* Cards avec meilleur contraste */
+.card-header h5,
+.card-header h6 {
+    color: var(--text-primary) !important;
+    font-weight: 600;
+}
+
+.card-body .fw-medium,
+.card-body .fw-bold {
+    color: var(--text-primary) !important;
+}
+
+/* Navbar fixe en haut */
+        .navbar-fixed {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            z-index: 1030;
+            height: 60px;
+            background-color: #ffffff;
+            border-bottom: 1px solid #dee2e6;
+            box-shadow: 0 2px 4px rgba(0,0,0,.04);
+        }
+

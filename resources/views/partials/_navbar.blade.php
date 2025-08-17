@@ -1,13 +1,13 @@
 <nav class="navbar navbar-expand-lg shadow-sm">
     <div class="container-fluid">
-        <button class="btn" type="button" id="sidebar-toggle">
+        <button class="btn text-light" type="button" id="sidebar-toggle">
             <i class="bi bi-list fs-4"></i>
         </button>
 
         <div class="ms-3 d-none d-md-block">
             <form class="d-flex">
                 <div class="input-group">
-                    <input class="form-control" type="search" placeholder="Rechercher..." aria-label="Search">
+                    <input class="form-control bg-dark text-light border-secondary" type="search" placeholder="Rechercher..." aria-label="Search">
                 </div>
             </form>
         </div>
